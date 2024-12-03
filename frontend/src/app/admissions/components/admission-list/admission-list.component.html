@@ -1,0 +1,69 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+
+    <!-- Bootstrap Table with Header - Light -->
+    <div class="card">
+  
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h5 class="mb-0">Admissions</h5>
+        <small class="text-muted float-end">
+          <a [routerLink]="['/admissions/details']"> <!---->
+            <button type="button" class="btn btn-primary">Add</button>
+          </a>
+        </small>
+      </div>
+<!--   
+      <pre>
+        {{admissionsList | json}}
+      </pre> -->
+
+      <div class="table-responsive text-nowrap">
+        <table class="table">
+          <thead class="table-light">
+            <tr>
+              <th>Name</th>
+              <th>admission Date</th>
+              <th>discharge Date</th>
+              <th>status</th>
+              <!-- <th>address</th> -->
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table-border-bottom-0">
+            <tr *ngFor="let admission of admissionsList">
+              <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{admission.patient.firstName}} {{admission.patient.lastName}}
+                 </strong></td>
+              <th> {{admission.admissionDate}}</th>
+              <td>{{admission.dischargeDate}}</td>
+              <td>{{admission.status}}</td>
+              <td>
+                <!-- *ngIf="admission.status =='Discharged'"  -->
+                <button type="button" class="btn btn-primary" (click)="invoice(admission)">Invoice</button>
+                <button *ngIf="admission.status !='Discharged'" type="button" class="btn btn-primary" (click)="assignMedicine(admission)">Add Medicine</button>
+                <button *ngIf="admission.status !='Discharged'" type="button" class="btn btn-primary" (click)="assignRoom(admission)">Add Room</button>
+
+              </td>
+
+              <td>
+                <div class="dropdown">
+                  <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
+                    <i class="bx bx-dots-vertical-rounded"></i>
+                  </button>
+                  <div class="dropdown-menu">
+
+
+                    <a class="dropdown-item" [routerLink]="['/admissions/details', admission.id]"
+                      ><i class="bx bx-edit-alt me-2"></i> Edit</a
+                    >
+                   
+                  </div>
+                </div>
+              </td>
+            </tr>
+  
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- Bootstrap Table with Header - Light -->
+  
+  </div>

@@ -1,0 +1,104 @@
+<div class="card mb-4">
+  <div class="card-header d-flex align-items-center justify-content-between">
+    <h5 class="mb-0">Admission Form</h5>
+  </div>
+  <div class="card-body">
+    <!-- Form -->
+    <form [formGroup]="admissionForm" (ngSubmit)="saveOrUpdateAdmission()">
+      <!-- Patient List -->
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="patientList">Patient List</label>
+        <div class="col-sm-10">
+          <select
+            class="form-control"
+            id="patientList"
+            formControlName="patientId"
+          >
+            <option value="" disabled>Select a patient</option>
+            <option *ngFor="let patient of patientList" [value]="patient.id">
+              {{ patient.firstName }} {{ patient.lastName }} (ID: {{ patient.id }})
+            </option>
+          </select>
+          <div *ngIf="admissionForm.get('patientId')?.touched && admissionForm.get('patientId')?.hasError('required')" class="text-danger">
+            Patient selection is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Admission Date -->
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="admissionDate">Admission Date</label>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            class="form-control"
+            id="admissionDate"
+            formControlName="admissionDate"
+          />
+          <div *ngIf="admissionForm.get('admissionDate')?.touched && admissionForm.get('admissionDate')?.hasError('required')" class="text-danger">
+            Admission date is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Discharge Date -->
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="dischargeDate">Discharge Date</label>
+        <div class="col-sm-10">
+          <input
+            type="date"
+            class="form-control"
+            id="dischargeDate"
+            formControlName="dischargeDate"
+          />
+          <div *ngIf="admissionForm.get('dischargeDate')?.touched && admissionForm.get('dischargeDate')?.hasError('required')" class="text-danger">
+            Discharge date is required.
+          </div>
+          <div *ngIf="admissionForm.hasError('dateMismatch')" class="text-danger">
+            Discharge date must be after the admission date.
+          </div>
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="status">Status</label>
+        <div class="col-sm-10">
+          <select class="form-control" id="status" formControlName="status">
+            <option value="" disabled>Select status</option>
+            <option value="Admitted">Admitted</option>
+            <option value="Discharged">Discharged</option>
+          </select>
+          <div *ngIf="admissionForm.get('status')?.touched && admissionForm.get('status')?.hasError('required')" class="text-danger">
+            Status is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Discharge Summary -->
+      <div class="row mb-3">
+        <label class="col-sm-2 col-form-label" for="dischargeSummary">Discharge Summary</label>
+        <div class="col-sm-10">
+          <textarea
+            class="form-control"
+            id="dischargeSummary"
+            formControlName="dischargeSummary"
+            placeholder="Enter discharge summary"
+          ></textarea>
+          <div *ngIf="admissionForm.get('dischargeSummary')?.touched && admissionForm.get('dischargeSummary')?.hasError('required')" class="text-danger">
+            Discharge summary is required.
+          </div>
+        </div>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="row justify-content-end">
+        <div class="col-sm-10">
+          <button type="submit" class="btn btn-primary" [disabled]="admissionForm.invalid">
+            Submit
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

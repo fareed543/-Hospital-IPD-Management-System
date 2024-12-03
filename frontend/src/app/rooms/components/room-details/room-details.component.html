@@ -1,0 +1,40 @@
+<div class="container-xxl flex-grow-1 container-p-y">
+  <!-- Form Layout -->
+  <div class="row">
+    <div class="col-xxl">
+      <div class="card mb-4">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="mb-0">Room Form</h5>
+        </div>
+        <div class="card-body">
+          <!-- Form -->
+          <form [formGroup]="roomForm" (ngSubmit)="saveOrUpdateRoom()">
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="name">Room Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" formControlName="name" placeholder="Enter room name" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="charges">Charges</label>
+              <div class="col-sm-10">
+                <input type="number" class="form-control" id="charges" formControlName="charges" placeholder="Enter charges" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="description">Description</label>
+              <div class="col-sm-10">
+                <textarea class="form-control" id="description" formControlName="description" placeholder="Enter room description"></textarea>
+              </div>
+            </div>
+            <div class="row justify-content-end">
+              <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary" [disabled]="roomForm.invalid">Submit</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
