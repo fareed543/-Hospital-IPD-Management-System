@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a02777d7-89c1-4bd2-ac18-e0d144a16616" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/controller/AdmissionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/controller/MedicineController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/controller/PatientController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/controller/RoomController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/Admission.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/AdmissionMedicine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/AdmissionRoom.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/Medicine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/Patient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/model/Room.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/AdmissionMedicineRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/AdmissionRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/AdmissionRoomRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/MedicineRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/PatientRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/repository/RoomRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/service/AdmissionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/service/MedicineService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/service/PatientService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/backend/src/main/java/com/jwt/implementation/service/RoomService.java" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
+  <component name="ProjectId" id="2piRH2y0AGXV9SkusbHgqWxouBM" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.SpringIdpApplication.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "D:/java/Hospital-IPD-Management-System/backend"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\java\Hospital-IPD-Management-System\backend\src\main\java\com\jwt\implementation\repository" />
+      <recent name="D:\java\Hospital-IPD-Management-System\backend\src\main\java\com\jwt\implementation\service" />
+      <recent name="D:\java\Hospital-IPD-Management-System\backend\src\main\java\com\jwt\implementation\controller" />
+      <recent name="D:\java\Hospital-IPD-Management-System\backend\src\main\java\com\jwt\implementation\model" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="JWTRoleBasedAuthentication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="JWTRoleBasedAuthentication" />
+      <option name="filePath" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a02777d7-89c1-4bd2-ac18-e0d144a16616" name="Changes" comment="" />
+      <created>1733246817605</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1733246817605</updated>
+    </task>
+    <servers />
+  </component>
+</project>
