@@ -13,8 +13,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.jwt.implementation.service.DefaultUserService;
+
+import java.util.Arrays;
 
 @Configuration
 @EnableWebSecurity
@@ -23,8 +28,7 @@ public class SecurityConfig {
 
 	@Autowired
 	DefaultUserService userDetailsService;
-	
-	
+
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
@@ -39,31 +43,40 @@ public class SecurityConfig {
 	}
 
 	@Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration autheticationConfiguration)
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
 			throws Exception {
-		return autheticationConfiguration.getAuthenticationManager();
+		return authenticationConfiguration.getAuthenticationManager();
 	}
 
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
-				.antMatchers("/registration","/genToken").permitAll()
+				.antMatchers("/registration", "/genToken").permitAll()
 				.antMatchers("/welcomeAdmin").hasAuthority("ROLE_ADMIN")
-
 				.antMatchers("/api/rooms/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/admissions/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/medicines/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/patients/**").hasAuthority("ROLE_USER")
-
-				.anyRequest()
-				.authenticated().and().sessionManagement()
-                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		 http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
+				.anyRequest().authenticated().and().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
-
 	}
+
 	@Bean
-    public JwtFilter authenticationTokenFilterBean() throws Exception {
-        return new JwtFilter();
-    }
+	public JwtFilter authenticationTokenFilterBean() throws Exception {
+		return new JwtFilter();
+	}
+
+	@Bean
+	public CorsConfigurationSource corsConfigurationSource() {
+		CorsConfiguration configuration = new CorsConfiguration();
+		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE"));
+		configuration.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type"));
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		source.registerCorsConfiguration("/**", configuration);
+		return source;
+	}
+
 }
