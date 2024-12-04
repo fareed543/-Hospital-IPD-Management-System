@@ -15,12 +15,12 @@ export class AuthService {
   // Login method
   login(username: string, password: string): Observable<any> {
     const body = { username, password };
-    return this.http.post(`${this.apiUrl}/auth/login`, body);  // POST request to the login endpoint
+    return this.http.post(`${this.apiUrl}auth/login`, body);  // POST request to the login endpoint
   }
 
   // Logout method
   logout(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/auth/logout`, {});  // POST request to logout endpoint
+    return this.http.post(`${this.apiUrl}auth/logout`, {});  // POST request to logout endpoint
   }
 
   // Optional: Check if the user is authenticated (based on token)
