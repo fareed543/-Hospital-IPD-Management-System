@@ -24,12 +24,12 @@
                 type="text"
                 class="form-control"
                 id="username"
-                formControlName="username"
+                formControlName="userName"
                 placeholder="Enter your username"
                 autofocus
               />
-              <div *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.invalid" class="text-danger">
-                <small *ngIf="loginForm.get('username')?.hasError('required')">Username is required</small>
+              <div *ngIf="loginForm.get('userName')?.touched && loginForm.get('userName')?.invalid" class="text-danger">
+                <small *ngIf="loginForm.get('userName')?.hasError('required')">Username is required</small>
               </div>
             </div>
 

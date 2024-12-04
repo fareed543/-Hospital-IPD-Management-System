@@ -52,17 +52,26 @@ public class RestAppController {
 			return generateRespose("User saved successfully : " + users.getId(), HttpStatus.OK, users);
 	}
 
-	@GetMapping("/genToken")
+//	@GetMapping("/genToken")
+//	public String generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
+//
+//			Authentication authentication = authManager.authenticate(
+//					new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
+//			SecurityContextHolder.getContext().setAuthentication(authentication);
+//
+//		return jwtGenVal.generateToken(authentication);
+//	}
+
+	@PostMapping("/genToken")
 	public String generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
-		
-			Authentication authentication = authManager.authenticate(
-					new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
-			SecurityContextHolder.getContext().setAuthentication(authentication);
-		
+		Authentication authentication = authManager.authenticate(
+				new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
+		SecurityContextHolder.getContext().setAuthentication(authentication);
+
 		return jwtGenVal.generateToken(authentication);
 	}
 
-	
+
 	@GetMapping("/welcomeAdmin")
 //	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String welcome() {

@@ -13,9 +13,11 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   // Login method
-  login(username: string, password: string): Observable<any> {
-    const body = { username, password };
-    return this.http.post(`${this.apiUrl}auth/login`, body);  // POST request to the login endpoint
+  login(userName: string, password: string): Observable<any> {
+    const body = { userName, password };
+    // return this.http.post(`${this.apiUrl}auth/login`, body);  // POST request to the login endpoint
+    return this.http.post(`http://localhost:8089/genToken`, body);  // POST request to the login endpoint
+
   }
 
   // Logout method

@@ -16,7 +16,7 @@ export class LoginComponent {
   ngOnInit(): void {
     // Initialize the form
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]], // Username field with validation
+      userName: ['', [Validators.required]], // Username field with validation
       password: ['', [Validators.required, Validators.minLength(3)]], // Password field with validation
     });
   }
@@ -24,8 +24,8 @@ export class LoginComponent {
   // Submit method
   onSubmit(): void {
     if (this.loginForm.valid) {
-      const { username, password } = this.loginForm.value;
-      this.authService.login(username, password).subscribe(
+      const { userName, password } = this.loginForm.value;
+      this.authService.login(userName, password).subscribe(
         (response) => {
           debugger
           console.log('Login successful', response);
