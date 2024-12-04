@@ -65,7 +65,6 @@ export class RoomDialogComponent implements OnInit {
     if (this.roomForm.valid) {
       const formData = this.roomForm.value;
       
-      debugger
       // Extract necessary values from the form
       const admissionId = this.data.admission.id; // Patient/Admission ID
       const roomId = formData.roomId; // Room ID

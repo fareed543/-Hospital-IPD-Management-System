@@ -27,7 +27,6 @@ export class LoginComponent {
       const { userName, password } = this.loginForm.value;
       this.authService.login(userName, password).subscribe(
         (response) => {
-          debugger
           console.log('Login successful', response);
 
           // Store auth token and navigate to dashboard

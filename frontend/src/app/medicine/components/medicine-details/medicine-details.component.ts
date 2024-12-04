@@ -71,7 +71,7 @@ export class MedicineDetailsComponent {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/medicines/list']);
+            this.router.navigate(['/medicine/list']);
           });
         },
         error: (err) => {
@@ -94,7 +94,7 @@ export class MedicineDetailsComponent {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/medicines/list']);
+            this.router.navigate(['/medicine/list']);
           });
         },
         error: (err) => {

@@ -54,9 +54,9 @@ public class SecurityConfig {
 				.antMatchers("/registration", "/genToken").permitAll()
 				.antMatchers("/welcomeAdmin").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/rooms/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers("/api/admissions/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/medicines/**").hasAuthority("ROLE_ADMIN")
-				.antMatchers("/api/patients/**").hasAuthority("ROLE_USER")
+				.antMatchers("/api/admissions/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
+				.antMatchers("/api/patients/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 				.anyRequest().authenticated().and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);

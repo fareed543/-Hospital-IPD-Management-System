@@ -75,7 +75,7 @@ export class PatientDetailsComponent {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/patients/list']);
+            this.router.navigate(['/patient/list']);
           });
         },
         error: (err) => {
@@ -98,7 +98,7 @@ export class PatientDetailsComponent {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            this.router.navigate(['/patients/list']);
+            this.router.navigate(['/patient/list']);
           });
         },
         error: (err) => {
