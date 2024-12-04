@@ -49,6 +49,12 @@ public class SecurityConfig {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers("/registration","/genToken").permitAll()
 				.antMatchers("/welcomeAdmin").hasAuthority("ROLE_ADMIN")
+
+				.antMatchers("/api/rooms/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/api/admissions/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/api/medicines/**").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/api/patients/**").hasAuthority("ROLE_USER")
+
 				.anyRequest()
 				.authenticated().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
