@@ -16,6 +16,7 @@ export class LayoutComponent {
   logout(): void {
     // Call the logout method from AuthService
     // this.authService.logout();
+    localStorage.removeItem("userName");
     localStorage.removeItem("authToken");
 
     // Redirect to login page
