@@ -1,10 +1,13 @@
 package com.jwt.implementation.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.annotation.security.RolesAllowed;
 
+import com.jwt.implementation.model.LoginResponseDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -63,13 +66,28 @@ public class RestAppController {
 //	}
 
 	@PostMapping("/genToken")
-	public String generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
+	public ResponseEntity<LoginResponseDTO> generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
+		// Authenticate the user
 		Authentication authentication = authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		return jwtGenVal.generateToken(authentication);
+		// Generate JWT token
+		String token = jwtGenVal.generateToken(authentication);
+
+		// Extract username and roles from authentication
+		String username = userDto.getUserName();
+		List<String> roles = authentication.getAuthorities().stream()
+				.map(authority -> authority.getAuthority())
+				.collect(Collectors.toList());
+
+		// Create the response object
+		LoginResponseDTO response = new LoginResponseDTO(token, username, roles);
+
+		// Return the response with the generated token and user details
+		return ResponseEntity.ok(response);
 	}
+
 
 
 	@GetMapping("/welcomeAdmin")

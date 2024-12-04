@@ -31,6 +31,7 @@ export class LoginComponent {
           console.log('Login successful', response);
 
           // Store auth token and navigate to dashboard
+          localStorage.setItem('userName', response.username);
           localStorage.setItem('authToken', response.token);
           this.router.navigate(['/dashboard']);
         },
