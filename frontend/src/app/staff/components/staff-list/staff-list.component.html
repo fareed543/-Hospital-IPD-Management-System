@@ -59,11 +59,13 @@
         </thead>
         <tbody class="table-border-bottom-0">
           <tr *ngFor="let staff of staffList">
+
+            
             <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{staff.firstName}}
                 {{staff.lastName}}</strong></td>
-            <th>{{staff.username}}</th>
+            <th>{{staff.userName}}</th>
             <td>{{staff.email}}</td>
-            <td>{{staff.role}}</td>
+            <td>{{staff.role | json}}</td>
             <td>{{staff.mobile}}</td>
             <td>
               <div class="dropdown">

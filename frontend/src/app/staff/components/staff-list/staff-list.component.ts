@@ -29,8 +29,8 @@ onSearch(): void {
 
   // Call the service method to fetch employees based on the search parameters
   this.staffService.getStaffList(this.searchForm.value.firstName, this.searchForm.value.mobile).subscribe(
-    (data) => {
-      this.staffList = data; // Update staffList with filtered data
+    (response : any) => {
+      this.staffList = response.data; // Update staffList with filtered data
     },
     (error) => {
       console.error('Error fetching employees:', error);
@@ -41,8 +41,8 @@ onSearch(): void {
 // Fetch all employees without any filter
 getStaff(): void {
   this.staffService.getStaffList().subscribe(
-    (data) => {
-      this.staffList = data; // Assign the employee data
+    (response : any) => {
+      this.staffList = response.data; // Assign the employee data
     },
     (error) => {
       console.error('Error fetching employee list:', error);
@@ -59,7 +59,7 @@ getStaff(): void {
   deleteStaff(staff: any) {
     Swal.fire({
       title: 'Are you sure?',
-      text: `You are about to delete ${staff.firstName} ${staff.lastName}. This action cannot be undone.`,
+      text: `You are about to delete ${staff.userName}. This action cannot be undone.`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonText: 'Yes, delete it!',
@@ -70,7 +70,8 @@ getStaff(): void {
         // Proceed with deletion if confirmed
         this.staffService.deleteStaff(staff.id).subscribe({
           next: () => {
-            Swal.fire('Deleted!', `${staff.firstName} ${staff.lastName} has been deleted.`, 'success');
+            Swal.fire('Deleted!', `${staff.userName} has been deleted.`, 'success');
+            this.getStaff();
             // Optionally refresh the list or remove the staff from the UI
           },
           error: (err) => {
