@@ -21,7 +21,7 @@ export class StaffService {
       params = params.set('mobile', mobile);
     }
   
-    return this.http.get<any[]>(`${this.baseUrl}users/employees`, { params }).pipe(
+    return this.http.get<any[]>(`${this.baseUrl}users`, { params }).pipe(
       catchError(error => {
         console.error('Error fetching staff list', error);
         return throwError(error); // Return the error to the component

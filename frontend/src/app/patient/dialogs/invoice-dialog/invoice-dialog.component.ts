@@ -25,25 +25,10 @@ export class InvoiceDialogComponent implements OnInit {
     this.admissionId = this.data.admission.id; // Assume the admission ID is passed as part of the dialog data
 
     // Fetch data when the component is initialized
-    this.fetchAdmissionsData();
     this.fetchMedicineData();
     this.fetchRoomData();
   }
 
-  // Fetch admission data (you can implement this based on your API)
-  fetchAdmissionsData(): void {
-    this.admissionService.addAdmission(this.admissionId).subscribe(
-      (response :any ) => {
-        this.admissionsList = response;
-        console.log('Admissions Data:', this.admissionsList);
-        this.loading = false; // Set loading to false once data is fetched
-      },
-      (error :any ) => {
-        console.error('Error fetching admission data:', error);
-        this.loading = false;
-      }
-    );
-  }
 
   // Fetch medicine data by admission ID
   fetchMedicineData(): void {

@@ -55,6 +55,16 @@ public class RestAppController {
 			return generateRespose("User saved successfully : " + users.getId(), HttpStatus.OK, users);
 	}
 
+	// New API to fetch list of all users
+	@GetMapping("/api/users")
+	public ResponseEntity<Object> getAllUsers() {
+		List<User> users = userRepo.findAll(); // Fetch all users from the repository
+		if (users.isEmpty()) {
+			return generateRespose("No users found", HttpStatus.NOT_FOUND, null);
+		}
+		return generateRespose("Users retrieved successfully", HttpStatus.OK, users);
+	}
+
 //	@GetMapping("/genToken")
 //	public String generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
 //
