@@ -19,14 +19,18 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int id;
-    private String userName;
-    private String password;
-    private String email;
-    
-    @ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "users_role", joinColumns = @JoinColumn(name = "cust_id", referencedColumnName = "id"),
-	inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id") )
+	private String userName;
+	private String password;
+	private String email;
+	private String mobile;
+
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "users_role",
+			joinColumns = @JoinColumn(name = "cust_id", referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id"))
 	Set<Role> roles = new HashSet<Role>();
+
+	// Getters and Setters
 	public int getId() {
 		return id;
 	}
@@ -51,14 +55,16 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public String getMobile() { // Getter for mobile
+		return mobile;
+	}
+	public void setMobile(String mobile) { // Setter for mobile
+		this.mobile = mobile;
+	}
 	public Set<Role> getRole() {
 		return roles;
 	}
-
 	public void setRole(Role role) {
 		this.roles.add(role);
 	}
-    
-    
-
 }

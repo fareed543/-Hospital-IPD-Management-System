@@ -50,6 +50,7 @@ public class DefaultUserServiceImpl implements DefaultUserService{
 		User user = new User();
 		user.setEmail(userRegisteredDTO.getEmail());
 		user.setUserName(userRegisteredDTO.getUserName());
+		user.setMobile(userRegisteredDTO.getMobile());
 		user.setPassword(passwordEncoder.encode(userRegisteredDTO.getPassword()));
 		user.setRole(role);
 		
