@@ -8,10 +8,13 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./layout.component.scss']
 })
 export class LayoutComponent {
+  userName : any;
   constructor(
     private authService: AuthService, 
     private router: Router
-  ) {}
+  ) {
+    this.userName = localStorage.getItem("userName");
+  }
   
   logout(): void {
     // Call the logout method from AuthService

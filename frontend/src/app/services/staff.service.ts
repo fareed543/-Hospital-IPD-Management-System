@@ -11,11 +11,11 @@ export class StaffService {
 
   constructor(private http: HttpClient) {}
 
-  getStaffList(firstName: string = '', mobile: string = ''): Observable<any[]> {
+  getStaffList(userName: string = '', mobile: string = ''): Observable<any[]> {
     let params = new HttpParams();
   
-    if (firstName) {
-      params = params.set('firstName', firstName);
+    if (userName) {
+      params = params.set('userName', userName);
     }
     if (mobile) {
       params = params.set('mobile', mobile);

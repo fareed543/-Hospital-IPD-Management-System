@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { StaffService } from 'src/app/services/staff.service';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-staff-details',
@@ -23,38 +23,32 @@ export class StaffDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.initForm();
 
-    // Check if an 'id' exists in the route parameters
     const staffId = this.route.snapshot.paramMap.get('id');
     if (staffId) {
-      this.selectedStaffId = +staffId; // convert to number
+      this.selectedStaffId = +staffId;
       this.isEditMode = true;
       this.loadStaffDetails();
     }
   }
 
-  // Load staff details for editing
   loadStaffDetails() {
     if (this.selectedStaffId) {
       this.staffService.getStaffById(this.selectedStaffId).subscribe({
         next: (staffData) => {
-          this.staffForm.patchValue(staffData); // Populate form with staff data
+          this.staffForm.patchValue(staffData.data);
         },
         error: (err) => console.error('Error loading staff details', err),
       });
     }
   }
 
-  // Initialize the form
   initForm() {
     this.staffForm = this.fb.group({
-      username: ['', Validators.required],
+      userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],
-      role: ['', Validators.required],
       mobile: ['', [Validators.required, Validators.pattern(/^\d{10}$/)]],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      address: ['', Validators.required],
+      role: ['', Validators.required]
     });
   }
 
@@ -63,11 +57,10 @@ export class StaffDetailsComponent implements OnInit {
       this.staffForm.markAllAsTouched();
       return;
     }
-  
+
     const staffData: any = this.staffForm.value;
-  
+
     if (this.isEditMode && this.selectedStaffId) {
-      // Update staff
       this.staffService.updateStaff(this.selectedStaffId, staffData).subscribe({
         next: () => {
           Swal.fire({
@@ -76,7 +69,6 @@ export class StaffDetailsComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            // Navigate back to staff list after successful update
             this.router.navigate(['/staff/list']);
           });
         },
@@ -91,7 +83,6 @@ export class StaffDetailsComponent implements OnInit {
         },
       });
     } else {
-      // Create new staff
       this.staffService.addStaff(staffData).subscribe({
         next: () => {
           Swal.fire({
@@ -100,7 +91,6 @@ export class StaffDetailsComponent implements OnInit {
             icon: 'success',
             confirmButtonText: 'OK'
           }).then(() => {
-            // Navigate back to staff list after successful creation
             this.router.navigate(['/staff/list']);
           });
         },
@@ -116,9 +106,7 @@ export class StaffDetailsComponent implements OnInit {
       });
     }
   }
-  
 
-  // Reset form to initial state
   resetForm() {
     this.staffForm.reset();
     this.isEditMode = false;

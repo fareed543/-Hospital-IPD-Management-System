@@ -52,7 +52,7 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.cors().and().csrf().disable().authorizeRequests()
 				.antMatchers("/registration", "/genToken").permitAll()
-				.antMatchers("/users").hasAuthority("ROLE_ADMIN")
+				.antMatchers("/api/users/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/welcomeAdmin").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/rooms/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/medicines/**").hasAuthority("ROLE_ADMIN")

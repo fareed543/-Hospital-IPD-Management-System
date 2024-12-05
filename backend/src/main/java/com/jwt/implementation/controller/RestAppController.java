@@ -17,16 +17,14 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.jwt.implementation.config.JwtGeneratorValidator;
 import com.jwt.implementation.model.User;
 import com.jwt.implementation.model.UserDTO;
 import com.jwt.implementation.repository.UserRepository;
 import com.jwt.implementation.service.DefaultUserService;
+import java.util.Optional;
 
 @RestController
 public class RestAppController {
@@ -55,53 +53,93 @@ public class RestAppController {
 			return generateRespose("User saved successfully : " + users.getId(), HttpStatus.OK, users);
 	}
 
-	// New API to fetch list of all users
-	@GetMapping("/api/users")
-	public ResponseEntity<Object> getAllUsers() {
-		List<User> users = userRepo.findAll(); // Fetch all users from the repository
-		if (users.isEmpty()) {
-			return generateRespose("No users found", HttpStatus.NOT_FOUND, null);
+	@PostMapping("/api/users")
+	public ResponseEntity<Object> createUser(@RequestBody UserDTO userDto) {
+		User savedUser = userService.save(userDto);
+
+		if (savedUser == null) {
+			return generateRespose("User could not be saved", HttpStatus.BAD_REQUEST, null);
+		} else {
+			return generateRespose("User saved successfully: " + savedUser.getId(), HttpStatus.CREATED, savedUser);
 		}
+	}
+
+
+
+	@PutMapping("/api/users/{id}")
+	public ResponseEntity<Object> updateUser(@PathVariable("id") int userId, @RequestBody UserDTO userDto) {
+
+		if (userDto == null || userDto.getUserName() == null || userDto.getEmail() == null) {
+			return generateRespose("Invalid user data", HttpStatus.BAD_REQUEST, null);
+		}
+
+		User updatedUser = userService.update(userId, userDto);
+		if (updatedUser == null) {
+			return generateRespose("User not found", HttpStatus.NOT_FOUND, null);
+		} else {
+			return generateRespose("User updated successfully", HttpStatus.OK, updatedUser);
+		}
+	}
+
+
+	@GetMapping("/api/users/{id}")
+	public ResponseEntity<Object> getUserById(@PathVariable int id) {
+		Optional<User> userOptional = userRepo.findById(id); // Use repository to find the user by ID
+
+		if (userOptional.isPresent()) {
+			return generateRespose("User retrieved successfully", HttpStatus.OK, userOptional.get());
+		} else {
+			return generateRespose("User not found", HttpStatus.NOT_FOUND, null);
+		}
+	}
+
+
+
+
+	@GetMapping("/api/users")
+	public ResponseEntity<Object> getAllUsers(
+			@RequestParam(required = false) String userName,
+			@RequestParam(required = false) String mobile) {
+
+		List<User> users;
+
+		if (userName != null && mobile != null) {
+			users = userRepo.findByUserNameStartingWithAndMobileStartingWith(userName, mobile);
+		} else if (userName != null) {
+			users = userRepo.findByUserNameStartingWith(userName);
+		} else if (mobile != null) {
+			users = userRepo.findByMobileStartingWith(mobile);
+		} else {
+			users = userRepo.findAll();
+		}
+
 		return generateRespose("Users retrieved successfully", HttpStatus.OK, users);
 	}
 
-//	@GetMapping("/genToken")
-//	public String generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
-//
-//			Authentication authentication = authManager.authenticate(
-//					new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
-//			SecurityContextHolder.getContext().setAuthentication(authentication);
-//
-//		return jwtGenVal.generateToken(authentication);
-//	}
+
+
 
 	@PostMapping("/genToken")
 	public ResponseEntity<LoginResponseDTO> generateJwtToken(@RequestBody UserDTO userDto) throws Exception {
-		// Authenticate the user
 		Authentication authentication = authManager.authenticate(
 				new UsernamePasswordAuthenticationToken(userDto.getUserName(), userDto.getPassword()));
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 
-		// Generate JWT token
 		String token = jwtGenVal.generateToken(authentication);
 
-		// Extract username and roles from authentication
 		String username = userDto.getUserName();
 		List<String> roles = authentication.getAuthorities().stream()
 				.map(authority -> authority.getAuthority())
 				.collect(Collectors.toList());
 
-		// Create the response object
 		LoginResponseDTO response = new LoginResponseDTO(token, username, roles);
-
-		// Return the response with the generated token and user details
 		return ResponseEntity.ok(response);
 	}
 
 
 
 	@GetMapping("/welcomeAdmin")
-//	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
 	public String welcome() {
 		return "WelcomeAdmin";
 	}
@@ -112,8 +150,22 @@ public class RestAppController {
 		return "WelcomeUSER";
 	}
 
-	
-	
+
+	@DeleteMapping("/api/users/{id}")
+	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
+	public ResponseEntity<Object> deleteUser(@PathVariable int id) {
+		User user = userRepo.findById(id).orElse(null);
+
+		if (user == null) {
+			return generateRespose("User not found", HttpStatus.NOT_FOUND, null);
+		}
+
+		userRepo.delete(user);
+		return generateRespose("User deleted successfully", HttpStatus.OK, null);
+	}
+
+
+
 	public ResponseEntity<Object> generateRespose(String message, HttpStatus st, Object responseobj) {
 
 		Map<String, Object> map = new HashMap<String, Object>();

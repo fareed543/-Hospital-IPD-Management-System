@@ -7,5 +7,6 @@ import com.jwt.implementation.model.UserDTO;
 
 public interface DefaultUserService extends UserDetailsService{
 	User save(UserDTO userRegisteredDTO);
+	User update(int userId, UserDTO userDTO);
 
 }
