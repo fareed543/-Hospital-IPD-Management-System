@@ -35,7 +35,19 @@ export class StaffDetailsComponent implements OnInit {
     if (this.selectedStaffId) {
       this.staffService.getStaffById(this.selectedStaffId).subscribe({
         next: (staffData) => {
-          this.staffForm.patchValue(staffData.data);
+          const staff = staffData.data;
+          const role = staff.role[0].role === 'ROLE_ADMIN' ? 'ADMIN' : 
+                     staff.role[0].role === 'ROLE_USER' ? 'USER' : '';
+          this.staffForm.patchValue({
+            firstName: staff.firstName,
+            lastName: staff.lastName,
+            userName: staff.userName,
+            password: staff.password,
+            email: staff.email,
+            mobile: staff.mobile,
+            role: role
+          });
+          
         },
         error: (err) => console.error('Error loading staff details', err),
       });
