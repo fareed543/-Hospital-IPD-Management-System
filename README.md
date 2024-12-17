@@ -63,7 +63,7 @@
 
 1. **Clone the Repository**  
    ```bash
-   git clone https://github.com/joshsoftware/ipd-management.git
+   git clone [https://github.com/joshsoftware/ipd-management.git](https://github.com/fareed543/IPD-Management.git)
    cd ipd-management
 
 
