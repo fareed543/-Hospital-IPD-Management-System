@@ -16,7 +16,7 @@ export class AuthService {
   login(userName: string, password: string): Observable<any> {
     const body = { userName, password };
     // return this.http.post(`${this.apiUrl}auth/login`, body);  // POST request to the login endpoint
-    return this.http.post(`http://localhost:8088/genToken`, body);  // POST request to the login endpoint
+    return this.http.post(`http://localhost:8088/login`, body);  // POST request to the login endpoint
 
   }
 

@@ -43,15 +43,15 @@
               </div>
               <div class="input-group input-group-merge">
                 <input
-                  type="password"
                   id="password"
+                  [type]="passwordVisible ? 'text' : 'password'"
                   class="form-control"
                   formControlName="password"
                   placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
                   aria-describedby="password"
                 />
-                <span class="input-group-text cursor-pointer">
-                  <i class="bx bx-hide"></i>
+                <span class="input-group-text cursor-pointer" (click)="togglePasswordVisibility()">
+                  <i class="bx" [class.bx-hide]="!passwordVisible" [class.bx-show]="passwordVisible"></i>
                 </span>
               </div>
               <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid" class="text-danger">

@@ -10,37 +10,38 @@ import { AuthService } from '../services/auth.service';
 })
 export class LoginComponent {
   loginForm!: FormGroup;
+  passwordVisible: boolean = false; 
 
   constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {}
 
   ngOnInit(): void {
-    // Initialize the form
     this.loginForm = this.fb.group({
-      userName: ['', [Validators.required]], // Username field with validation
-      password: ['', [Validators.required, Validators.minLength(3)]], // Password field with validation
+      userName: ['', [Validators.required]], 
+      password: ['', [Validators.required, Validators.minLength(3)]], 
     });
   }
 
-  // Submit method
+
   onSubmit(): void {
     if (this.loginForm.valid) {
       const { userName, password } = this.loginForm.value;
       this.authService.login(userName, password).subscribe(
         (response) => {
-          console.log('Login successful', response);
-
-          // Store auth token and navigate to dashboard
+          localStorage.setItem('role', response.roles[0]);
           localStorage.setItem('userName', response.username);
           localStorage.setItem('authToken', response.token);
           this.router.navigate(['/dashboard']);
         },
         (error) => {
           console.error('Login failed', error);
-          // Handle login failure, e.g., show an error message to the user
         }
       );
     } else {
       console.log('Form is not valid');
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.passwordVisible = !this.passwordVisible; 
   }
 }

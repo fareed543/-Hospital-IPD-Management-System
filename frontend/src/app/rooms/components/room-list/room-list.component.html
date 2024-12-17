@@ -27,7 +27,7 @@
               <td><i class="fab fa-angular fa-lg text-danger me-3"></i> <strong>{{room.name}}
                  </strong></td>
               <th> {{room.charges}}</th>
-              <td>{{room.description}}</td>
+              <td>{{ room.description.length > 20 ? room.description.substring(0, 20) + '...' : room.description }}</td>
               <td>
                 <div class="dropdown">
                   <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">

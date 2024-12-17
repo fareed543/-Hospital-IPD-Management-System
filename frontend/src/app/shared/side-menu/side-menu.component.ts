@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./side-menu.component.scss']
 })
 export class SideMenuComponent {
+  userRole : string | null = '';
+  constructor(){
+    this.userRole = localStorage.getItem('role');
+    localStorage.getItem('userName');
+  }
 
 }

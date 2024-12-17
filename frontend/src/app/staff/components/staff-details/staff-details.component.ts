@@ -44,6 +44,8 @@ export class StaffDetailsComponent implements OnInit {
 
   initForm() {
     this.staffForm = this.fb.group({
+      firstName : ['', Validators.required],
+      lastName : ['', Validators.required], 
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       email: ['', [Validators.required, Validators.email]],

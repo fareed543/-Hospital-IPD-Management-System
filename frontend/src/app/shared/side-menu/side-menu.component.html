@@ -58,7 +58,7 @@
             </g>
           </svg>
         </span>
-        <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+        <span class="app-brand-text demo menu-text fw-bolder ms-2">IDP</span>
       </a>
 
       <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -92,9 +92,9 @@
         </a>
       </li>
       <!-- Misc -->
-      <li class="menu-header small text-uppercase"><span class="menu-header-text">Admin</span></li>
+      <li class="menu-header small text-uppercase" *ngIf="userRole === 'ROLE_ADMIN'"><span class="menu-header-text">Admin</span></li>
       
-      <li class="menu-item">
+      <li class="menu-item" *ngIf="userRole === 'ROLE_ADMIN'">
         <a [routerLink]="['/staff']" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Staff</div>
@@ -102,14 +102,14 @@
       </li>
 
 
-      <li class="menu-item">
+      <li class="menu-item"  *ngIf="userRole === 'ROLE_ADMIN'">
         <a [routerLink]="['/rooms']" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Rooms</div>
         </a>
       </li>
 
-      <li class="menu-item">
+      <li class="menu-item"  *ngIf="userRole === 'ROLE_ADMIN'">
         <a [routerLink]="['/medicine']" class="menu-link">
           <i class="menu-icon tf-icons bx bx-home-circle"></i>
           <div data-i18n="Analytics">Medicine</div>

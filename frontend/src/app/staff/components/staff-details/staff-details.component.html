@@ -8,6 +8,18 @@
         <div class="card-body">
           <form [formGroup]="staffForm" (ngSubmit)="saveOrUpdateStaff()">
             <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="userName">First Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Enter firstName" />
+              </div>
+            </div>
+            <div class="row mb-3">
+              <label class="col-sm-2 col-form-label" for="lastName">Last Name</label>
+              <div class="col-sm-10">
+                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Enter lastName" />
+              </div>
+            </div>
+            <div class="row mb-3">
               <label class="col-sm-2 col-form-label" for="userName">Username</label>
               <div class="col-sm-10">
                 <input type="text" class="form-control" id="userName" formControlName="userName" placeholder="Enter username" />

@@ -65,7 +65,7 @@
                 {{staff.lastName}}</strong></td>
             <th>{{staff.userName}}</th>
             <td>{{staff.email}}</td>
-            <td>{{staff.role | json}}</td>
+            <td>{{staff.role[0].role === 'ROLE_USER' ? 'Staff' : 'Admin'}}</td>
             <td>{{staff.mobile}}</td>
             <td>
               <div class="dropdown">
