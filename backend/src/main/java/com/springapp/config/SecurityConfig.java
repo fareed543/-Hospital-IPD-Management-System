@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -19,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import com.springapp.service.DefaultUserService;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Arrays;
 
 @Configuration
@@ -58,11 +60,18 @@ public class SecurityConfig {
 				.antMatchers("/api/medicines/**").hasAuthority("ROLE_ADMIN")
 				.antMatchers("/api/admissions/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
 				.antMatchers("/api/patients/**").hasAnyAuthority("ROLE_USER", "ROLE_ADMIN")
-				.anyRequest().authenticated().and().sessionManagement()
+				.anyRequest().authenticated()
+				.and()
+				.exceptionHandling()
+				.accessDeniedHandler(accessDeniedHandler())
+				.and()
+				.sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 		http.addFilterBefore(authenticationTokenFilterBean(), UsernamePasswordAuthenticationFilter.class);
 		return http.build();
 	}
+
+
 
 	@Bean
 	public JwtFilter authenticationTokenFilterBean() throws Exception {
@@ -78,6 +87,15 @@ public class SecurityConfig {
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
+	}
+
+	@Bean
+	public AccessDeniedHandler accessDeniedHandler() {
+		return (request, response, accessDeniedException) -> {
+			response.setStatus(HttpServletResponse.SC_FORBIDDEN);
+			response.setContentType("application/json");
+			response.getWriter().write("{\"error\": \"Access denied\", \"message\": \"" + accessDeniedException.getMessage() + "\"}");
+		};
 	}
 
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpErrorResponse } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -8,10 +10,8 @@ export class AuthInterceptor implements HttpInterceptor {
   constructor() { }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    // Retrieve the auth token from localStorage
     const authToken = localStorage.getItem('authToken');
 
-    // If token exists, clone the request and set the Authorization header
     if (authToken) {
       const cloned = req.clone({
         setHeaders: {
@@ -19,11 +19,33 @@ export class AuthInterceptor implements HttpInterceptor {
         }
       });
 
-      // Proceed with the cloned request
-      return next.handle(cloned);
+      return next.handle(cloned).pipe(
+        catchError((error: HttpErrorResponse) => {
+          if (error.status === 403) {
+            Swal.fire({
+              icon: 'error',
+              title: 'Access Denied',
+              text: error.error?.message || 'You do not have permission to access this resource.',
+              confirmButtonText: 'Okay',
+            });
+          }
+          return throwError(() => error);
+        })
+      );
     }
 
-    // If no token, proceed with the original request
-    return next.handle(req);
+    return next.handle(req).pipe(
+      catchError((error: HttpErrorResponse) => {
+        if (error.status === 403) {
+          Swal.fire({
+            icon: 'error',
+            title: 'Access Denied',
+            text: error.error?.message || 'You do not have permission to access this resource.',
+            confirmButtonText: 'Okay',
+          });
+        }
+        return throwError(() => error);
+      })
+    );
   }
 }
